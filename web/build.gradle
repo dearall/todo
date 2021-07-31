@@ -1,0 +1,10 @@
+plugins {
+    id 'war'
+    id "org.gretty" version "3.0.5"
+}
+dependencies {
+    implementation project(':model')
+    implementation project(':repository')
+    providedCompile 'javax.servlet:servlet-api:2.5'
+    runtimeOnly 'javax.servlet:jstl:1.1.2'
+}

@@ -1,0 +1,14 @@
+allprojects {
+    group = 'com.manning.gia'
+    version = '0.1'
+    apply plugin: 'idea'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply from: "$rootDir/gradle/jacoco.gradle"
+
+    repositories {
+        maven { url 'https://maven.aliyun.com/repository/central' }
+    }
+}
