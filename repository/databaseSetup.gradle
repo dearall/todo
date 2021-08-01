@@ -16,6 +16,8 @@ task startDatabase(type: H2DatabaseStarter) {
     description = 'Starts database.'
     tcpPort = h2TcpPort
     blockMs = h2StartupBlockMs
+
+    println "tcpPort:"+tcpPort
 }
 
 task stopDatabase(type: JavaExec) {
@@ -76,6 +78,7 @@ class PortFinder {
 
             throw new RuntimeException("Could not find an available port between $MIN_PORT_NUMBER and $MAX_PORT_NUMBER")
         }
+        return 0
     }
 
     private static boolean available(final int port) {

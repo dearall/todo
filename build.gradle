@@ -11,6 +11,8 @@ subprojects {
 
     apply from: "$rootDir/gradle/jacoco.gradle"
     apply from: "$rootDir/gradle/checkstyle.gradle"
+    apply from: "$rootDir/gradle/pmd.gradle"
+	
     repositories {
         maven { url 'https://maven.aliyun.com/repository/central' }
     }
