@@ -6,8 +6,11 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
-    apply from: "$rootDir/gradle/jacoco.gradle"
 
+    ext.configDir = new File(rootDir, 'config')
+
+    apply from: "$rootDir/gradle/jacoco.gradle"
+    apply from: "$rootDir/gradle/checkstyle.gradle"
     repositories {
         maven { url 'https://maven.aliyun.com/repository/central' }
     }
