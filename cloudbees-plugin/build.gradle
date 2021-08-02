@@ -1,5 +1,6 @@
 plugins {
     id 'groovy'
+    id 'distribution'
 }
 
 dependencies {
@@ -33,4 +34,26 @@ task groovydocJar(type: Jar, dependsOn: groovydoc) {
 artifacts {
     archives sourcesJar
     archives groovydocJar
+}
+
+
+
+distributions {
+    main {
+        distributionBaseName = archivesBaseName
+        contents {
+            from{
+                libsDirectory
+            }
+        }
+    }
+    docs {
+        distributionBaseName = "$archivesBaseName-docs"
+        contents {
+            from(libsDirectory) {
+                include sourcesJar.archiveFileName.get()
+                include groovydocJar.archiveFileName.get()
+            }
+        }
+    }
 }

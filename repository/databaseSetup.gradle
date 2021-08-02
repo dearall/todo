@@ -67,7 +67,7 @@ class H2DatabaseStarter extends DefaultTask {
 }
 
 class PortFinder {
-    static final int MIN_PORT_NUMBER = 1024
+    static final int MIN_PORT_NUMBER = 2048
     static final int MAX_PORT_NUMBER = 49151
 
     static int findFreePort() {
