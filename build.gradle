@@ -12,6 +12,11 @@ subprojects {
     apply from: "$rootDir/gradle/jacoco.gradle"
     apply from: "$rootDir/gradle/checkstyle.gradle"
     apply from: "$rootDir/gradle/pmd.gradle"
+
+    task reportAll(){
+        dependsOn(jacocoTestReport, checkstyleMain, checkstyleTest,pmdMain,pmdTest)
+        group("Reports")
+    }
 	
     repositories {
         maven { url 'https://maven.aliyun.com/repository/central' }
