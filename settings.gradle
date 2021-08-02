@@ -1,2 +1,4 @@
 rootProject.name='todo'
 include 'model', 'repository', 'web'
+include 'cloudbees-plugin'
+
