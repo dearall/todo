@@ -58,7 +58,15 @@ distributions {
         }
     }
 }
+
+ext {
+    mavenBaseUrl = 'http://repo.sansovo.org:8081/repository/'
+    mavenSnapshotRepoUrl = "$mavenBaseUrl/dearall-snapshots"
+    mavenReleaseRepoUrl = "$mavenBaseUrl/dearall-releases"
+}
+
 // id 'maven-publish'
+
 publishing {
     publications {
         cloudbeesPlugin(MavenPublication) {
@@ -95,4 +103,24 @@ publishing {
             artifact groovydocJar
         }
     }
+    repositories {
+        maven {
+            name 'myLocal'
+            url "file://$projectDir/repo"
+        }
+
+        maven {
+            name 'remoteMaven'
+            url project.version.endsWith('-SNAPSHOT') ? mavenSnapshotRepoUrl : mavenReleaseRepoUrl
+
+            credentials {
+                username = maven_publish_userName
+                password = maven_publish_userPassword
+            }
+
+            allowInsecureProtocol = true
+        }
+    }
 }
+
+

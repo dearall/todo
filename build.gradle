@@ -1,6 +1,6 @@
 allprojects {
     group = 'com.manning.gia'
-    version = '1.0'
+    version = '1.0-SNAPSHOT'
     apply plugin: 'idea'
 }
 
