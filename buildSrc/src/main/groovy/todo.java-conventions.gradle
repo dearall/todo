@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+//                JavaVersion.VERSION_11
+        vendor = JvmVendorSpec.ADOPTOPENJDK
+        implementation = JvmImplementation.VENDOR_SPECIFIC
+    }
+}
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/central' }
+}

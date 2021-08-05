@@ -9,5 +9,69 @@ dependencies {
 //    runtimeOnly 'javax.servlet:jstl:1.1.2'
     providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
     runtimeOnly 'javax.servlet:jstl:1.2'
+}
 
+task createBuildInfoFile {
+    doLast {
+        def buildInfoFile = new File("$buildDir/build-info.properties")
+        Properties props = new Properties()
+        props.setProperty('version', project.version.toString())
+        props.setProperty('build', project.version.build ?: '')
+        props.setProperty('timestamp', project.buildTimestamp)
+        props.store(buildInfoFile.newWriter(), null)
+    }
+}
+
+war {
+    dependsOn createBuildInfoFile
+    archiveBaseName = rootProject.name
+
+    from(buildDir) {
+        include 'build-info.properties'
+        into('WEB-INF/classes')
+    }
+}
+
+distTar.dependsOn(war)
+distZip.dependsOn(war)
+docsDistTar.dependsOn(war)
+docsDistZip.dependsOn(war)
+
+// id 'maven-publish'
+publishing {
+    publications {
+        toDoWebApp(MavenPublication) {
+            from components.web
+            artifactId 'todo-web'
+
+            pom {
+                name = "Gradle CloudBees plugin"
+                description = 'Gradle plugin for managing applications and databases on CloudBees RUN@cloud.'
+                url = "https://github.com/dearall/todo.git"
+                inceptionYear = '2021'
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = "johnd"
+                        name = "John Doe"
+                        email = "john.doe@example.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/dearall/todo.git"
+                    developerConnection = "scm:git:https://github.com/dearall/todo.git"
+                    url = "https://github.com/dearall/todo.git"
+                }
+            }
+
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
 }
