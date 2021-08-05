@@ -71,6 +71,7 @@ class PortFinder {
     static final int MAX_PORT_NUMBER = 49151
 
     static int findFreePort() {
+        /*
         for (i in MIN_PORT_NUMBER..MAX_PORT_NUMBER) {
             if (available(i)) {
                 return i
@@ -79,18 +80,23 @@ class PortFinder {
             throw new RuntimeException("Could not find an available port between $MIN_PORT_NUMBER and $MAX_PORT_NUMBER")
         }
         return 0
+        */
+
+        int port = availablePort()
+        println "findFreePort: "+port
+        return port
     }
 
-    private static boolean available(final int port) {
+    private static int availablePort() {
         ServerSocket serverSocket = null
         DatagramSocket dataSocket = null
 
         try {
-            serverSocket = new ServerSocket(port)
-            serverSocket.reuseAddress = true
-            dataSocket = new DatagramSocket(port)
-            dataSocket.reuseAddress = true
-            return true
+            serverSocket = new ServerSocket(0)
+//            serverSocket.reuseAddress = true
+//            dataSocket = new DatagramSocket(port)
+//            dataSocket.reuseAddress = true
+            return serverSocket.getLocalPort()
         }
         catch (IOException e) {
             return false
