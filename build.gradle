@@ -67,6 +67,17 @@ subprojects {
     docsDistTar.dependsOn(jar,sourcesJar,javadocJar)
     docsDistZip.dependsOn(jar,sourcesJar,javadocJar)
 
+    task createBuildInfoFile {
+        doLast {
+            def buildInfoFile = new File("$buildDir/build-info.properties")
+            Properties props = new Properties()
+            props.setProperty('version', project.version.toString())
+            props.setProperty('build', project.version.build ?: '')
+            props.setProperty('timestamp', project.buildTimestamp)
+            props.store(buildInfoFile.newWriter(), null)
+        }
+    }
+
     ext.configDir = new File(rootDir, 'config')
 
     apply from: "$rootDir/gradle/jacoco.gradle"

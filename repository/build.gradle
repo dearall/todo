@@ -38,6 +38,13 @@ integrationTest.dependsOn startAndPrepareDatabase
 stopDatabase.dependsOn integrationTest
 check.dependsOn stopDatabase
 
+jar {
+    dependsOn createBuildInfoFile
+    from(buildDir) {
+        include 'build-info.properties'
+    }
+}
+
 // id 'maven-publish'
 publishing {
     publications {
